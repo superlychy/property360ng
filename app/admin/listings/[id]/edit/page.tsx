@@ -4,18 +4,19 @@ import ListingForm from '@/components/admin/ListingForm'
 import MediaGalleryManager from '@/components/admin/MediaGalleryManager'
 import { notFound } from 'next/navigation'
 
-export default async function EditListingPage({
-    params,
-}: {
-    params: { id: string }
-}) {
+type Props = {
+    params: Promise<{ id: string }>
+}
+
+export default async function EditListingPage({ params }: Props) {
+    const { id } = await params
     const supabase = await createClient()
 
     // Fetch existing listing data
     const { data: listing, error } = await supabase
         .from('listings')
         .select('*')
-        .eq('id', params.id)
+        .eq('id', id)
         .single()
 
     if (error || !listing) {

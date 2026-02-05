@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Playfair_Display, Outfit } from 'next/font/google'
 import './globals.css'
 
@@ -20,6 +20,12 @@ const outfit = Outfit({
     display: 'swap',
 })
 
+
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+}
 
 export const metadata: Metadata = {
     title: 'Property360ng - Verified Nigerian Real Estate & Virtual Tours',
@@ -61,11 +67,6 @@ export const metadata: Metadata = {
     },
     icons: {
         icon: '/favicon.ico', // Standard nextjs favicon
-    },
-    viewport: {
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 5,
     },
 }
 
