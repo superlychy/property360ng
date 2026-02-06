@@ -34,9 +34,8 @@ export default function Navbar() {
         >
             <div className="container-custom flex items-center justify-between">
                 {/* Logo */}
-                {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 z-50">
-                    <img src="/logo.png" alt="Property360ng" className="h-10 w-auto" />
+                <Link href="/" className="text-2xl font-bold font-display tracking-tight z-50">
+                    Property<span className="text-green-500">360ng</span>
                 </Link>
 
                 {/* Desktop Menu */}
@@ -65,7 +64,7 @@ export default function Navbar() {
 
                 {/* Mobile Toggle */}
                 <button
-                    className="md:hidden z-50 text-white p-2"
+                    className="md:hidden z-[101] text-white p-2 relative"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 >
                     {mobileMenuOpen ? (

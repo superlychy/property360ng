@@ -6,9 +6,9 @@ export default function Footer() {
             <div className="container-custom">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                     <div className="space-y-6">
-                        <Link href="/" className="inline-block">
-                            <img src="/logo.png" alt="Property360ng" className="h-12 w-auto" />
-                        </Link>
+                        <h3 className="text-2xl font-bold text-white tracking-tighter">
+                            Property<span className="text-green-500">360ng</span>
+                        </h3>
                         <p className="text-gray-500 text-sm leading-relaxed">
                             Pioneering the future of digital real estate. We bridge the gap between imagination and reality with immersive technology.
                         </p>

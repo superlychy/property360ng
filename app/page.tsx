@@ -83,7 +83,7 @@ export default async function HomePage() {
                     </div>
 
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight tracking-tight font-display animate-fade-in-up delay-100">
-                        See Lagos, Nigeria Properties Clearly
+                        See Nigerian Properties Clearly
                         <span className="block mt-2 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">From Every Angle</span>
                     </h1>
 
