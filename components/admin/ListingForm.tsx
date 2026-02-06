@@ -26,11 +26,12 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
         description: initialData?.description || '',
         cover_image: initialData?.cover_image || null,
         video_url: initialData?.video_url || null,
+        property_title: initialData?.property_title || '',
         published: initialData?.published || false,
         whatsapp_number: initialData?.whatsapp_number || '',
     })
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
@@ -90,6 +91,7 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
                 description: formData.description,
                 cover_image: formData.cover_image,
                 video_url: formData.video_url,
+                property_title: formData.property_title || null,
                 published: formData.published,
                 whatsapp_number: formData.whatsapp_number || null,
             }
@@ -168,6 +170,37 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
                                         required
                                     />
                                 </div>
+                            </div>
+
+                            <div>
+                                <label className="label" htmlFor="property_title">Property Title / Document Type</label>
+                                <select
+                                    id="property_title"
+                                    name="property_title"
+                                    value={formData.property_title}
+                                    onChange={handleChange}
+                                    className="input"
+                                >
+                                    <option value="">Select document type...</option>
+                                    <option value="Certificate of Occupancy (C of O)">Certificate of Occupancy (C of O)</option>
+                                    <option value="Governor's Consent">Governor's Consent</option>
+                                    <option value="Deed of Assignment">Deed of Assignment</option>
+                                    <option value="Registered Survey">Registered Survey</option>
+                                    <option value="Excision">Excision</option>
+                                    <option value="Gazette">Gazette</option>
+                                    <option value="Receipt & Survey Plan">Receipt & Survey Plan</option>
+                                    <option value="Power of Attorney">Power of Attorney</option>
+                                    <option value="Letter of Allocation">Letter of Allocation</option>
+                                    <option value="Deed of Sublease">Deed of Sublease</option>
+                                    <option value="Deed of Lease">Deed of Lease</option>
+                                    <option value="Family Receipt">Family Receipt</option>
+                                    <option value="Community Receipt">Community Receipt</option>
+                                    <option value="In Process">In Process</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <p className="text-xs text-gray-400 mt-1">
+                                    Select the legal documentation status of this property
+                                </p>
                             </div>
 
                             <div>

@@ -88,7 +88,7 @@ export default async function HomePage() {
                     </h1>
 
                     <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light animate-fade-in-up delay-200">
-                        Property360.ng helps you rent, buy, and invest in verified Nigerian properties with immersive 360° tours, transparent pricing, and zero agent drama.
+                        Property360ng helps you rent, buy, and invest in verified Nigerian properties with immersive 360° tours, transparent pricing, and zero agent drama.
                     </p>
 
                     <div className="flex flex-wrap gap-6 justify-center animate-fade-in-up delay-300">
@@ -131,7 +131,7 @@ export default async function HomePage() {
                 <div className="container-custom">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white font-display">
-                            Why Nigerians Trust <span className="text-green-400">Property360.ng</span>
+                            Why Nigerians Trust <span className="text-green-400">Property360ng</span>
                         </h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-8 text-center">
@@ -267,7 +267,7 @@ export default async function HomePage() {
                         <div>
                             <h3 className="text-3xl font-bold mb-6 text-white font-display">Buying From <span className="text-blue-400">Abroad?</span></h3>
                             <p className="text-gray-400 mb-6 leading-relaxed">
-                                Property360.ng helps you inspect, verify, and secure properties remotely. You don't need to be in Nigeria to own property here.
+                                Property360ng helps you inspect, verify, and secure properties remotely. You don't need to be in Nigeria to own property here.
                             </p>
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-center gap-3 text-gray-300"><span className="text-blue-400">✓</span> Virtual inspections & 360 tours</li>
@@ -295,7 +295,7 @@ export default async function HomePage() {
                         Ready to Find Your <br />Perfect Sanctuary?
                     </h2>
                     <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto font-light">
-                        Join thousands of satisfied homeowners who found their dream property through Property360ng.
+                        Join hundreds of satisfied homeowners who found their dream property through Property360ng.
                     </p>
                     <Link
                         href="/listings"

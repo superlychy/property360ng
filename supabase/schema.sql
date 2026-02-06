@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS listings (
     location TEXT NOT NULL,
     description TEXT,
     cover_image TEXT,
+    property_title TEXT,
     published BOOLEAN DEFAULT false,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()

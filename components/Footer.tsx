@@ -33,7 +33,7 @@ export default function Footer() {
                         <h4 className="text-white font-bold mb-6 tracking-wide uppercase text-sm">Real Estate</h4>
                         <ul className="space-y-4 text-sm text-gray-400">
                             <li><Link href="/listings" className="hover:text-green-500 transition-colors flex items-center gap-2"><span>→</span> Buy Property</Link></li>
-                            <li><Link href="#" className="hover:text-green-500 transition-colors flex items-center gap-2"><span>→</span> Sell Property</Link></li>
+                            <li><Link href="/contact" className="hover:text-green-500 transition-colors flex items-center gap-2"><span>→</span> Sell Property</Link></li>
                             <li><Link href="#" className="hover:text-green-500 transition-colors flex items-center gap-2"><span>→</span> New Developments</Link></li>
                         </ul>
                     </div>
@@ -42,7 +42,7 @@ export default function Footer() {
                         <h4 className="text-white font-bold mb-6 tracking-wide uppercase text-sm">Company</h4>
                         <ul className="space-y-4 text-sm text-gray-400">
                             <li><Link href="/about" className="hover:text-green-500 transition-colors flex items-center gap-2"><span>→</span> About Us</Link></li>
-                            <li><Link href="#" className="hover:text-green-500 transition-colors flex items-center gap-2"><span>→</span> Careers</Link></li>
+                            <li><Link href="/careers" className="hover:text-green-500 transition-colors flex items-center gap-2"><span>→</span> Careers</Link></li>
                         </ul>
                     </div>
 

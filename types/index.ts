@@ -6,6 +6,7 @@ export type Listing = {
     location: string
     description: string | null
     cover_image: string | null
+    property_title: string | null
     published: boolean
     whatsapp_number: string | null
     gallery_images: string[] | null
