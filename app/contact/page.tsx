@@ -58,8 +58,7 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <p className="font-bold text-white">Email</p>
-                                        <p>hello@property360ng.com</p>
-                                        <p>support@property360ng.com</p>
+                                        <p>Contact@property360ng.com</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
@@ -68,8 +67,7 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <p className="font-bold text-white">Phone</p>
-                                        <p>+234 800 123 4567</p>
-                                        <p>+234 800 987 6543</p>
+                                        <p>+234 707 279 5393</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
@@ -78,8 +76,8 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <p className="font-bold text-white">Office</p>
-                                        <p>15 Victoria Island Blvd,</p>
-                                        <p>Victoria Island, Lagos, Nigeria</p>
+                                        <p>12 Obong street, Royal Gardens Ajah,</p>
+                                        <p>Lagos, Nigeria</p>
                                     </div>
                                 </div>
                             </div>

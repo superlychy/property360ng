@@ -157,12 +157,11 @@ export default async function HomePage() {
                     <div className="container-custom">
                         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                             <div>
-                                <span className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">PORTFOLIO</span>
                                 <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white font-display">
-                                    Verified <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Inventory</span>
+                                    Available <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Homes</span>
                                 </h2>
                                 <p className="text-xl text-gray-400 max-w-xl font-light">
-                                    Explore our exclusive portfolio of properties with immersive 360° virtual tours from the comfort of your device.
+                                    Discover real homes you can trust, explored through immersive 360° tours.
                                 </p>
                             </div>
                             <Link href="/listings" className="text-white border-b border-green-500 pb-1 hover:text-green-400 transition-colors flex items-center gap-2">
