@@ -66,7 +66,9 @@ export const metadata: Metadata = {
         },
     },
     icons: {
-        icon: '/favicon.ico', // Standard nextjs favicon
+        icon: '/icon.png',
+        shortcut: '/icon.png',
+        apple: '/icon.png',
     },
 }
 

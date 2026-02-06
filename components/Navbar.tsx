@@ -34,8 +34,9 @@ export default function Navbar() {
         >
             <div className="container-custom flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="text-2xl font-bold font-display tracking-tight z-50">
-                    Property<span className="text-green-500">360ng</span>
+                {/* Logo */}
+                <Link href="/" className="flex items-center gap-2 z-50">
+                    <img src="/logo.png" alt="Property360ng" className="h-10 w-auto" />
                 </Link>
 
                 {/* Desktop Menu */}
