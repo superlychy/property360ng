@@ -30,13 +30,13 @@ export default async function ListingsPage() {
             <main className="container-custom py-32 min-h-screen">
                 <div className="mb-16 text-center">
                     <span className="inline-block px-3 py-1 mb-4 bg-green-500/10 rounded-full text-xs font-bold tracking-wider text-green-500 uppercase border border-green-500/20">
-                        Portfolio
+                        Listings
                     </span>
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 font-display">
-                        Verified <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Inventory</span>
+                        Verified <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Listings</span>
                     </h1>
                     <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light">
-                        Explore our exclusive portfolio of properties with immersive 360° virtual tours from the comfort of your device.
+                        Browse verified properties with full 360° virtual tours from the comfort of your device.
                     </p>
                 </div>
 

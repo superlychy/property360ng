@@ -158,10 +158,10 @@ export default async function HomePage() {
                         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                             <div>
                                 <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white font-display">
-                                    Available <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Homes</span>
+                                    Verified <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Listings</span>
                                 </h2>
                                 <p className="text-xl text-gray-400 max-w-xl font-light">
-                                    Discover real homes you can trust, explored through immersive 360° tours.
+                                    Browse verified properties with full 360° virtual tours from the comfort of your device.
                                 </p>
                             </div>
                             <Link href="/listings" className="text-white border-b border-green-500 pb-1 hover:text-green-400 transition-colors flex items-center gap-2">

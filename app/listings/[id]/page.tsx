@@ -1,10 +1,49 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import MediaViewer from '@/components/MediaViewer'
 
 type Props = {
     params: Promise<{ id: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id } = await params
+    const supabase = await createClient()
+
+    const { data: listing } = await supabase
+        .from('listings')
+        .select('title, description, location, price, cover_image')
+        .eq('id', id)
+        .single()
+
+    if (!listing) {
+        return {
+            title: 'Property Not Found | Property360ng',
+        }
+    }
+
+    const title = `${listing.title} | Verified Listing in ${listing.location}`
+    const description = `Check out this verified property in ${listing.location} for ₦${listing.price?.toLocaleString()}. Verified listing with 360° virtual tour on Property360ng.`
+
+    return {
+        title,
+        description,
+        keywords: [`real estate ${listing.location}`, 'house for sale', 'property360ng', listing.location, 'verified listing'],
+        openGraph: {
+            title,
+            description,
+            type: 'website',
+            images: listing.cover_image ? [{ url: listing.cover_image }] : [],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+            images: listing.cover_image ? [listing.cover_image] : [],
+        },
+    }
 }
 
 export default async function ListingDetailPage({ params }: Props) {
@@ -95,7 +134,7 @@ export default async function ListingDetailPage({ params }: Props) {
 
                             {listing.whatsapp_number && (
                                 <a
-                                    href={`https://wa.me/${listing.whatsapp_number}?text=${encodeURIComponent(`Hi! I'm interested in ${listing.title} located in ${listing.location}. Price: ₦${listing.price?.toLocaleString()}. I saw it on Property360ng.`)}`}
+                                    href={`https://wa.me/${listing.whatsapp_number}?text=${encodeURIComponent(`Hi! I'm interested in ${listing.title} located in ${listing.location}. Price: ₦${listing.price?.toLocaleString()}. I saw it on Property360ng.com.`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="px-8 py-4 bg-[#25D366] text-white rounded-full font-bold text-lg hover:bg-[#20bd5a] transition-all shadow-lg flex items-center gap-2"

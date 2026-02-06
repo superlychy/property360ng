@@ -20,7 +20,7 @@ export default function AdminDashboard() {
                             +
                         </div>
                         <h3 className="text-xl font-semibold mb-1 group-hover:text-blue-400">Create Listing</h3>
-                        <p className="text-sm text-gray-500">Add a new property to your portfolio</p>
+                        <p className="text-sm text-gray-500">Add a new property to your listings</p>
                     </div>
                 </Link>
 

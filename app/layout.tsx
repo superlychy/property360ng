@@ -30,7 +30,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
     title: 'Property360ng - Verified Nigerian Real Estate & Virtual Tours',
     description: 'Rent, buy, and invest in verified Nigerian properties with immersive 360° tours. Transparent pricing, direct agent contact, and zero drama.',
-    keywords: ['real estate nigeria', 'lagos property', '360 virtual tours', 'buy house lagos', 'property360ng', 'verified listings', 'nigerian diaspora real estate'],
+    keywords: ['real estate nigeria', 'lagos property', 'house for sale', 'estate', 'ajah', 'lekki', 'ibeju-lekki', 'ikeja', 'abuja', '360 virtual tours', 'buy house lagos', 'property360ng', 'verified listings', 'nigerian diaspora real estate'],
     authors: [{ name: 'Property360ng' }],
     openGraph: {
         title: 'Property360ng - See Lagos Properties Clearly',

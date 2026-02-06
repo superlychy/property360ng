@@ -25,7 +25,7 @@ export default async function ListingsPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
                     <h1 className="text-3xl font-bold mb-2">My Listings</h1>
-                    <p className="text-gray-400">Manage your real estate portfolio ({listings?.length || 0})</p>
+                    <p className="text-gray-400">Manage your property listings ({listings?.length || 0})</p>
                 </div>
 
                 <Link href="/admin/listings/new" className="btn-primary whitespace-nowrap">
