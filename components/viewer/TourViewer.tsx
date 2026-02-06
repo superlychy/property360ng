@@ -58,7 +58,6 @@ export default function TourViewer({ scenes, listingTitle, listingId }: TourView
     useEffect(() => {
         if (!pannellumLoaded || !viewerRef.current || !currentScene) return
 
-        console.log('[TourViewer] Initializing scene:', currentScene.name, 'with', currentScene.hotspots.length, 'hotspots')
 
         // Destroy existing viewer
         if (pannellumInstance.current) {
@@ -75,13 +74,6 @@ export default function TourViewer({ scenes, listingTitle, listingId }: TourView
             const targetScene = scenes.find(s => s.id === h.target_scene_id)
             const targetIndex = scenes.findIndex(s => s.id === h.target_scene_id)
 
-            console.log('[TourViewer] Creating hotspot:', {
-                id: h.id,
-                label: h.label,
-                targetScene: targetScene?.name,
-                targetIndex
-            })
-
             return {
                 id: h.id,
                 pitch: h.pitch,
@@ -97,17 +89,12 @@ export default function TourViewer({ scenes, listingTitle, listingId }: TourView
                     `
                 },
                 clickHandlerFunc: () => {
-                    console.log('[TourViewer] Hotspot clicked:', h.id, 'Target:', targetScene?.name, 'Index:', targetIndex)
                     if (targetIndex !== -1) {
                         setCurrentSceneIndex(targetIndex)
-                    } else {
-                        console.error('[TourViewer] Target scene not found:', h.target_scene_id)
                     }
                 }
             }
         })
-
-        console.log('[TourViewer] Created', hotspots.length, 'hotspots')
 
         // Initialize viewer
         try {
@@ -125,7 +112,6 @@ export default function TourViewer({ scenes, listingTitle, listingId }: TourView
             })
 
             pannellumInstance.current = viewer
-            console.log('[TourViewer] Viewer initialized successfully')
         } catch (error) {
             console.error('[TourViewer] Error initializing viewer:', error)
         }
@@ -297,41 +283,6 @@ export default function TourViewer({ scenes, listingTitle, listingId }: TourView
                         </div>
                     )}
 
-                    {/* Instructions (show briefly on load) */}
-                    {currentSceneIndex === 0 && (
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-lg rounded-xl p-6 max-w-md text-center z-10 animate-fade-in pointer-events-none">
-                            <div className="text-4xl mb-4">👆</div>
-                            <p className="text-lg mb-2">Click the blue hotspots to navigate</p>
-                            <p className="text-sm text-gray-400">Drag to look around</p>
-                        </div>
-                    )}
-
-                    {/* Debug Panel (remove after testing) */}
-                    <div className="absolute top-20 right-4 bg-black/90 backdrop-blur-lg rounded-lg p-4 text-xs z-30 max-w-xs">
-                        <div className="font-bold mb-2 text-green-400">🔍 Debug Info:</div>
-                        <div className="space-y-1 text-gray-300">
-                            <div>Scene: {currentScene.name}</div>
-                            <div>Hotspots in scene: {currentScene.hotspots.length}</div>
-                            <div>Pannellum loaded: {pannellumLoaded ? '✅' : '❌'}</div>
-                            <div className="mt-2 pt-2 border-t border-gray-700">
-                                {currentScene.hotspots.length > 0 ? (
-                                    <div>
-                                        <div className="font-semibold text-blue-400">Hotspots:</div>
-                                        {currentScene.hotspots.map((h, i) => {
-                                            const target = scenes.find(s => s.id === h.target_scene_id)
-                                            return (
-                                                <div key={h.id} className="ml-2 text-xs">
-                                                    {i + 1}. {h.label || target?.name || 'Unnamed'} ({h.yaw.toFixed(1)}°, {h.pitch.toFixed(1)}°)
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                ) : (
-                                    <div className="text-yellow-400">No hotspots in this scene</div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
                 </>
             )}
 

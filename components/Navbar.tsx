@@ -55,12 +55,6 @@ export default function Navbar() {
                 {/* CTA Buttons */}
                 <div className="hidden md:flex items-center gap-4">
                     <Link
-                        href="/login"
-                        className="text-sm font-medium text-white hover:text-green-400 transition-colors"
-                    >
-                        Sign In
-                    </Link>
-                    <Link
                         href="/contact"
                         className="px-5 py-2.5 bg-white text-black rounded-full font-bold text-sm hover:bg-gray-200 transition-all transform hover:-translate-y-0.5"
                     >
@@ -81,7 +75,7 @@ export default function Navbar() {
                 </button>
 
                 {/* Mobile Menu Overlay */}
-                <div className={`fixed inset-0 bg-black/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center transition-all duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                <div className={`fixed inset-0 bg-black/95 backdrop-blur-xl z-[100] flex flex-col items-center justify-center transition-all duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                     }`}>
                     <div className="flex flex-col items-center gap-8">
                         {navLinks.map((link) => (
@@ -96,13 +90,6 @@ export default function Navbar() {
                             </Link>
                         ))}
                         <div className="flex flex-col items-center gap-4 mt-8">
-                            <Link
-                                href="/login"
-                                onClick={() => setMobileMenuOpen(false)}
-                                className="text-lg text-gray-400"
-                            >
-                                Sign In
-                            </Link>
                             <Link
                                 href="/contact"
                                 onClick={() => setMobileMenuOpen(false)}

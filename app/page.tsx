@@ -136,14 +136,14 @@ export default async function HomePage() {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-8 text-center">
                         {[
-                            { icon: '✔️', text: 'Verified properties only' },
-                            { icon: '🎥', text: '360° video & virtual tours' },
-                            { icon: '💎', text: 'Transparent fees' },
-                            { icon: '🚫', text: 'No fake listings' },
-                            { icon: '🌍', text: 'Diaspora-friendly process' }
+                            { icon: <svg className="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>, text: 'Verified properties only' },
+                            { icon: <svg className="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>, text: '360° video & virtual tours' },
+                            { icon: <svg className="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>, text: 'Transparent fees' },
+                            { icon: <svg className="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>, text: 'No fake listings' },
+                            { icon: <svg className="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>, text: 'Diaspora-friendly process' }
                         ].map((item, i) => (
                             <div key={i} className="flex flex-col items-center gap-3">
-                                <div className="text-4xl">{item.icon}</div>
+                                <div className="text-green-400">{item.icon}</div>
                                 <p className="font-medium text-gray-300">{item.text}</p>
                             </div>
                         ))}
@@ -157,15 +157,16 @@ export default async function HomePage() {
                     <div className="container-custom">
                         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                             <div>
+                                <span className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">PORTFOLIO</span>
                                 <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white font-display">
-                                    Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Properties</span>
+                                    Verified <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Inventory</span>
                                 </h2>
                                 <p className="text-xl text-gray-400 max-w-xl font-light">
-                                    Discover our premium selection of Nigeria's most prestigious properties.
+                                    Explore our exclusive portfolio of properties with immersive 360° virtual tours from the comfort of your device.
                                 </p>
                             </div>
                             <Link href="/listings" className="text-white border-b border-green-500 pb-1 hover:text-green-400 transition-colors flex items-center gap-2">
-                                View All Collections <span className="text-xl">→</span>
+                                View All Properties <span className="text-xl">→</span>
                             </Link>
                         </div>
 
@@ -229,13 +230,13 @@ export default async function HomePage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         {[
-                            { step: '1', title: 'We Verify', desc: 'Physical inspection & document check.', icon: '🛡️' },
-                            { step: '2', title: 'We Capture', desc: 'Real photos, videos & 360° tours.', icon: '📸' },
-                            { step: '3', title: 'You Explore', desc: 'View properties remotely from anywhere.', icon: '🌐' },
-                            { step: '4', title: 'You Decide', desc: 'Inspect, pay, and move with confidence.', icon: '🔑' }
+                            { step: '1', title: 'We Verify', desc: 'Physical inspection & document check.', icon: <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg> },
+                            { step: '2', title: 'We Capture', desc: 'Real photos, videos & 360° tours.', icon: <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg> },
+                            { step: '3', title: 'You Explore', desc: 'View properties remotely from anywhere.', icon: <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
+                            { step: '4', title: 'You Decide', desc: 'Inspect, pay, and move with confidence.', icon: <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg> }
                         ].map((item, i) => (
                             <div key={i} className="group p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-green-500/30 transition-all duration-300 relative">
-                                <div className="text-4xl mb-6">{item.icon}</div>
+                                <div className="text-green-400 mb-6">{item.icon}</div>
                                 <div className="text-xs font-bold text-green-500 tracking-widest uppercase mb-3">Step {item.step}</div>
                                 <h3 className="text-xl font-bold mb-3 text-white font-display">{item.title}</h3>
                                 <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
@@ -280,31 +281,6 @@ export default async function HomePage() {
                 </div>
             </section>
 
-            {/* Scam Alert Section */}
-            <section className="py-24 bg-red-900/10 border-y border-red-500/20">
-                <div className="container-custom text-center">
-                    <span className="inline-block px-3 py-1 mb-4 bg-red-500/10 rounded-full text-xs font-bold tracking-wider text-red-500 uppercase border border-red-500/20">Scam Alert</span>
-                    <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white font-display">Avoid Real Estate Scams</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-                        <div className="p-4 bg-red-500/5 rounded-lg border border-red-500/10">
-                            <span className="block text-2xl mb-2">🚫</span>
-                            <p className="text-sm text-gray-300 font-medium">Never pay before inspection</p>
-                        </div>
-                        <div className="p-4 bg-red-500/5 rounded-lg border border-red-500/10">
-                            <span className="block text-2xl mb-2">🕵️</span>
-                            <p className="text-sm text-gray-300 font-medium">Avoid multiple agents</p>
-                        </div>
-                        <div className="p-4 bg-red-500/5 rounded-lg border border-red-500/10">
-                            <span className="block text-2xl mb-2">📄</span>
-                            <p className="text-sm text-gray-300 font-medium">Demand real documents</p>
-                        </div>
-                        <div className="p-4 bg-red-500/5 rounded-lg border border-red-500/10">
-                            <span className="block text-2xl mb-2">⚡</span>
-                            <p className="text-sm text-gray-300 font-medium">Beware of rushed payments</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             {/* CTA Section */}
             <section className="py-32 relative overflow-hidden">
