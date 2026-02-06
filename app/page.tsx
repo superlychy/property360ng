@@ -76,7 +76,7 @@ export default async function HomePage() {
                 </div>
 
                 {/* Original Hero Content with Pro Copy */}
-                <div className="relative z-10 container-custom text-center px-6">
+                <div className="relative z-10 container-custom text-center px-6 mt-20 md:mt-32">
                     <div className="inline-flex items-center gap-2 mb-8 px-6 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-md shadow-2xl animate-fade-in-up">
                         <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                         <span className="text-gray-300 text-sm font-medium tracking-wide uppercase">Verified Nigerian Properties</span>
