@@ -1,4 +1,69 @@
+'use client';
+
+import { useState } from 'react';
+
 export default function ContactPage() {
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        subject: 'General Inquiry',
+        message: '',
+    });
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        setFormData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+        setSuccess(false);
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: `${formData.firstName} ${formData.lastName}`,
+                    email: formData.email,
+                    phone: formData.phone,
+                    message: `Subject: ${formData.subject}\n\n${formData.message}`,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to submit form');
+            }
+
+            setSuccess(true);
+            setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                phone: '',
+                subject: 'General Inquiry',
+                message: '',
+            });
+        } catch (err: any) {
+            setError(err.message || 'Something went wrong');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="pt-24 pb-20">
             <div className="container-custom">
@@ -13,24 +78,79 @@ export default function ContactPage() {
                     {/* Contact Form */}
                     <div className="bg-gray-900 border border-white/5 rounded-2xl p-8">
                         <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
-                        <form className="space-y-6">
+
+                        {success && (
+                            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                                <p className="text-green-400">
+                                    ✅ Thank you! Your message has been sent successfully.
+                                </p>
+                            </div>
+                        )}
+
+                        {error && (
+                            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+                                <p className="text-red-400">❌ {error}</p>
+                            </div>
+                        )}
+
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-400 mb-2">First Name</label>
-                                    <input type="text" className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all" placeholder="John" />
+                                    <label className="block text-sm font-medium text-gray-400 mb-2">First Name *</label>
+                                    <input
+                                        type="text"
+                                        name="firstName"
+                                        value={formData.firstName}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all"
+                                        placeholder="John"
+                                    />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-400 mb-2">Last Name</label>
-                                    <input type="text" className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all" placeholder="Doe" />
+                                    <label className="block text-sm font-medium text-gray-400 mb-2">Last Name *</label>
+                                    <input
+                                        type="text"
+                                        name="lastName"
+                                        value={formData.lastName}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all"
+                                        placeholder="Doe"
+                                    />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-400 mb-2">Email Address</label>
-                                <input type="email" className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all" placeholder="john@example.com" />
+                                <label className="block text-sm font-medium text-gray-400 mb-2">Email Address *</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all"
+                                    placeholder="john@example.com"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-400 mb-2">Phone (Optional)</label>
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all"
+                                    placeholder="+234 XXX XXX XXXX"
+                                />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-400 mb-2">Subject</label>
-                                <select className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all">
+                                <select
+                                    name="subject"
+                                    value={formData.subject}
+                                    onChange={handleChange}
+                                    className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all"
+                                >
                                     <option>General Inquiry</option>
                                     <option>Property Listing</option>
                                     <option>Partnership</option>
@@ -38,11 +158,22 @@ export default function ContactPage() {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-400 mb-2">Message</label>
-                                <textarea className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all h-32" placeholder="Tell us more..."></textarea>
+                                <label className="block text-sm font-medium text-gray-400 mb-2">Message *</label>
+                                <textarea
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 outline-none transition-all h-32"
+                                    placeholder="Tell us more..."
+                                ></textarea>
                             </div>
-                            <button type="submit" className="btn-primary w-full py-4 text-center justify-center">
-                                Send Message
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="btn-primary w-full py-4 text-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {loading ? 'Sending...' : 'Send Message'}
                             </button>
                         </form>
                     </div>

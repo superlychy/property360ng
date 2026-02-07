@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { uploadImage } from '@/lib/utils/image-upload'
+import { useCloudinaryUpload } from '@/lib/hooks/useCloudinaryUpload'
 import type { Listing } from '@/types'
 
 interface ListingFormProps {
@@ -15,9 +15,9 @@ interface ListingFormProps {
 export default function ListingForm({ initialData, isEditing = false }: ListingFormProps) {
     const router = useRouter()
     const supabase = createClient()
+    const { uploadImage: uploadToCloudinary, uploading: cloudinaryUploading } = useCloudinaryUpload()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
-    const [uploading, setUploading] = useState(false)
 
     const [formData, setFormData] = useState({
         title: initialData?.title || '',
@@ -42,23 +42,21 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         try {
-            setUploading(true)
             const file = e.target.files?.[0]
             if (!file) return
 
-            const publicUrl = await uploadImage(file, 'property-images')
-            setFormData((prev) => ({ ...prev, cover_image: publicUrl }))
+            const result = await uploadToCloudinary(file, 'property-images')
+            if (result) {
+                setFormData((prev) => ({ ...prev, cover_image: result.url }))
+            }
         } catch (err) {
             console.error('Upload failed:', err)
             setError('Failed to upload image')
-        } finally {
-            setUploading(false)
         }
     }
 
     const handleVideoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         try {
-            setUploading(true)
             const file = e.target.files?.[0]
             if (!file) return
 
@@ -68,13 +66,13 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
                 return
             }
 
-            const publicUrl = await uploadImage(file, 'property-images')
-            setFormData((prev) => ({ ...prev, video_url: publicUrl }))
+            const result = await uploadToCloudinary(file, 'property-videos')
+            if (result) {
+                setFormData((prev) => ({ ...prev, video_url: result.url }))
+            }
         } catch (err) {
             console.error('Video upload failed:', err)
             setError('Failed to upload video')
-        } finally {
-            setUploading(false)
         }
     }
 
@@ -288,7 +286,7 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
                                         type="file"
                                         accept="image/*"
                                         onChange={handleImageUpload}
-                                        disabled={uploading}
+                                        disabled={cloudinaryUploading}
                                         className="hidden"
                                         id="cover-upload"
                                     />
@@ -296,7 +294,7 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
                                         htmlFor="cover-upload"
                                         className="cursor-pointer block"
                                     >
-                                        {uploading ? (
+                                        {cloudinaryUploading ? (
                                             <span className="text-gray-400 animate-pulse">Uploading...</span>
                                         ) : (
                                             <>
@@ -338,7 +336,7 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
                                         type="file"
                                         accept="video/*"
                                         onChange={handleVideoUpload}
-                                        disabled={uploading}
+                                        disabled={cloudinaryUploading}
                                         className="hidden"
                                         id="video-upload"
                                     />
@@ -346,7 +344,7 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
                                         htmlFor="video-upload"
                                         className="cursor-pointer block"
                                     >
-                                        {uploading ? (
+                                        {cloudinaryUploading ? (
                                             <span className="text-gray-400 animate-pulse">Uploading...</span>
                                         ) : (
                                             <>
@@ -379,7 +377,7 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
                 </button>
                 <button
                     type="submit"
-                    disabled={loading || uploading}
+                    disabled={loading || cloudinaryUploading}
                     className="btn-primary px-8"
                 >
                     {loading ? 'Saving...' : (isEditing ? 'Update Listing' : 'Create Listing')}

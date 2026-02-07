@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { uploadImage } from '@/lib/utils/image-upload'
+import { useCloudinaryUpload } from '@/lib/hooks/useCloudinaryUpload'
 import type { Scene } from '@/types'
 import Link from 'next/link'
 
@@ -15,7 +15,7 @@ interface SceneListProps {
 export default function SceneList({ scenes, listingId }: SceneListProps) {
     const router = useRouter()
     const supabase = createClient()
-    const [uploading, setUploading] = useState(false)
+    const { uploadImage: uploadToCloudinary, uploading: cloudinaryUploading } = useCloudinaryUpload()
     const [newSceneName, setNewSceneName] = useState('')
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [deletingId, setDeletingId] = useState<string | null>(null)
@@ -35,8 +35,10 @@ export default function SceneList({ scenes, listingId }: SceneListProps) {
         if (!selectedFile || !newSceneName.trim()) return
 
         try {
-            setUploading(true)
-            const imageUrl = await uploadImage(selectedFile, 'property-images')
+            const result = await uploadToCloudinary(selectedFile, 'property-360-scenes')
+            if (!result) {
+                throw new Error('Upload failed')
+            }
 
             const maxOrder = Math.max(...scenes.map(s => s.order), -1)
 
@@ -45,7 +47,7 @@ export default function SceneList({ scenes, listingId }: SceneListProps) {
                 .insert({
                     listing_id: listingId,
                     name: newSceneName.trim(),
-                    image_360_url: imageUrl,
+                    image_360_url: result.url,
                     order: maxOrder + 1,
                 })
 
@@ -57,8 +59,6 @@ export default function SceneList({ scenes, listingId }: SceneListProps) {
         } catch (err) {
             console.error('Failed to add scene:', err)
             alert('Failed to add scene')
-        } finally {
-            setUploading(false)
         }
     }
 
@@ -143,10 +143,10 @@ export default function SceneList({ scenes, listingId }: SceneListProps) {
                     </div>
                     <button
                         type="submit"
-                        disabled={uploading || !selectedFile || !newSceneName.trim()}
+                        disabled={cloudinaryUploading || !selectedFile || !newSceneName.trim()}
                         className="btn-primary"
                     >
-                        {uploading ? 'Uploading...' : '+ Add Scene'}
+                        {cloudinaryUploading ? 'Uploading...' : '+ Add Scene'}
                     </button>
                 </form>
             </div>
