@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { uploadImage } from '@/lib/utils/image-upload'
+import { useCloudinaryUpload } from '@/lib/hooks/useCloudinaryUpload'
 
 interface MediaGalleryManagerProps {
     listingId: string
@@ -16,6 +16,7 @@ export default function MediaGalleryManager({
     initialVideo = null
 }: MediaGalleryManagerProps) {
     const supabase = createClient()
+    const { uploadImage: uploadToCloudinary, uploadMultipleImages, uploading: cloudinaryUploading } = useCloudinaryUpload()
     const [images, setImages] = useState<string[]>(initialImages)
     const [videoUrl, setVideoUrl] = useState<string | null>(initialVideo)
     const [uploading, setUploading] = useState(false)
@@ -28,11 +29,10 @@ export default function MediaGalleryManager({
             const files = e.target.files
             if (!files || files.length === 0) return
 
-            const uploadPromises = Array.from(files).map(file =>
-                uploadImage(file, 'property-images')
-            )
+            // Upload to Cloudinary
+            const uploadResults = await uploadMultipleImages(Array.from(files), 'property-gallery')
+            const urls = uploadResults.map(result => result.url)
 
-            const urls = await Promise.all(uploadPromises)
             const newImages = [...images, ...urls]
             setImages(newImages)
 
@@ -58,13 +58,24 @@ export default function MediaGalleryManager({
             const file = e.target.files?.[0]
             if (!file) return
 
-            const url = await uploadImage(file, 'property-images')
-            setVideoUrl(url)
+            // Basic validation
+            if (file.size > 100 * 1024 * 1024) { // 100MB limit
+                setError('Video file is too large (max 100MB)')
+                return
+            }
+
+            // Upload to Cloudinary
+            const result = await uploadToCloudinary(file, 'property-videos')
+            if (!result) {
+                throw new Error('Upload failed')
+            }
+
+            setVideoUrl(result.url)
 
             // Save to database
             const { error: updateError } = await supabase
                 .from('listings')
-                .update({ video_url: url })
+                .update({ video_url: result.url })
                 .eq('id', listingId)
 
             if (updateError) throw updateError

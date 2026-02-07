@@ -148,15 +148,32 @@ export default function MediaViewer({ images, videoUrl }: MediaViewerProps) {
                 )}
 
                 {activeTab === 'video' && videoUrl && (
-                    <div className="aspect-video rounded-xl overflow-hidden border border-gray-800 bg-black">
-                        <video
-                            src={videoUrl}
-                            controls
-                            className="w-full h-full"
-                            controlsList="nodownload"
+                    <div className="space-y-4">
+                        <div
+                            className="aspect-video rounded-xl overflow-hidden border border-gray-800 bg-black cursor-pointer group relative"
+                            onClick={() => setIsFullscreen(true)}
                         >
-                            Your browser does not support the video tag.
-                        </video>
+                            <video
+                                src={videoUrl}
+                                controls
+                                className="w-full h-full"
+                                controlsList="nodownload"
+                            >
+                                Your browser does not support the video tag.
+                            </video>
+                            {/* Fullscreen hint overlay */}
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                <div className="text-white text-center">
+                                    <svg className="w-16 h-16 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                    </svg>
+                                    <p className="text-lg font-medium">Click to view fullscreen</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text-center text-sm text-gray-400">
+                            Click video to view in fullscreen mode
+                        </div>
                     </div>
                 )}
             </div>
@@ -175,74 +192,105 @@ export default function MediaViewer({ images, videoUrl }: MediaViewerProps) {
                         </svg>
                     </button>
 
-                    {/* Image Counter */}
-                    <div className="absolute top-4 left-4 z-50 px-4 py-2 bg-black/50 text-white rounded-full backdrop-blur-sm">
-                        {selectedImageIndex + 1} / {images.length}
-                    </div>
-
-                    {/* Previous Button */}
-                    {images.length > 1 && (
-                        <button
-                            onClick={goToPrevious}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 hover:bg-black/80 text-white rounded-full transition-all backdrop-blur-sm"
-                            aria-label="Previous image"
-                        >
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
-                    )}
-
-                    {/* Main Image */}
-                    <div className="relative w-full h-full flex items-center justify-center p-4">
-                        <img
-                            src={images[selectedImageIndex]}
-                            alt={`Property image ${selectedImageIndex + 1}`}
-                            className="max-w-full max-h-full object-contain"
-                        />
-                    </div>
-
-                    {/* Next Button */}
-                    {images.length > 1 && (
-                        <button
-                            onClick={goToNext}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 hover:bg-black/80 text-white rounded-full transition-all backdrop-blur-sm"
-                            aria-label="Next image"
-                        >
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
-                    )}
-
-                    {/* Thumbnail Strip at Bottom */}
-                    {images.length > 1 && (
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-4xl w-full px-4">
-                            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
-                                {images.map((url, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => setSelectedImageIndex(index)}
-                                        className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${selectedImageIndex === index
-                                            ? 'border-blue-500 ring-2 ring-blue-500/50 scale-110'
-                                            : 'border-white/20 hover:border-white/50'
-                                            }`}
-                                    >
-                                        <img
-                                            src={url}
-                                            alt={`Thumbnail ${index + 1}`}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </button>
-                                ))}
+                    {activeTab === 'images' && images.length > 0 && (
+                        <>
+                            {/* Image Counter */}
+                            <div className="absolute top-4 left-4 z-50 px-4 py-2 bg-black/50 text-white rounded-full backdrop-blur-sm">
+                                {selectedImageIndex + 1} / {images.length}
                             </div>
-                        </div>
+
+                            {/* Previous Button */}
+                            {images.length > 1 && (
+                                <button
+                                    onClick={goToPrevious}
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 hover:bg-black/80 text-white rounded-full transition-all backdrop-blur-sm"
+                                    aria-label="Previous image"
+                                >
+                                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                            )}
+
+                            {/* Main Image */}
+                            <div className="relative w-full h-full flex items-center justify-center p-4">
+                                <img
+                                    src={images[selectedImageIndex]}
+                                    alt={`Property image ${selectedImageIndex + 1}`}
+                                    className="max-w-full max-h-full object-contain"
+                                />
+                            </div>
+
+                            {/* Next Button */}
+                            {images.length > 1 && (
+                                <button
+                                    onClick={goToNext}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 hover:bg-black/80 text-white rounded-full transition-all backdrop-blur-sm"
+                                    aria-label="Next image"
+                                >
+                                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            )}
+
+                            {/* Thumbnail Strip at Bottom */}
+                            {images.length > 1 && (
+                                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-4xl w-full px-4">
+                                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
+                                        {images.map((url, index) => (
+                                            <button
+                                                key={index}
+                                                onClick={() => setSelectedImageIndex(index)}
+                                                className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${selectedImageIndex === index
+                                                    ? 'border-blue-500 ring-2 ring-blue-500/50 scale-110'
+                                                    : 'border-white/20 hover:border-white/50'
+                                                    }`}
+                                            >
+                                                <img
+                                                    src={url}
+                                                    alt={`Thumbnail ${index + 1}`}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Keyboard Hint */}
+                            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 text-white/50 text-sm">
+                                Use arrow keys or click buttons to navigate • ESC to close
+                            </div>
+                        </>
                     )}
 
-                    {/* Keyboard Hint */}
-                    <div className="absolute bottom-24 left-1/2 -translate-x-1/2 text-white/50 text-sm">
-                        Use arrow keys or click buttons to navigate • ESC to close
-                    </div>
+                    {activeTab === 'video' && videoUrl && (
+                        <>
+                            {/* Video Title */}
+                            <div className="absolute top-4 left-4 z-50 px-4 py-2 bg-black/50 text-white rounded-full backdrop-blur-sm">
+                                Property Video
+                            </div>
+
+                            {/* Main Video */}
+                            <div className="relative w-full h-full flex items-center justify-center p-4">
+                                <video
+                                    src={videoUrl}
+                                    controls
+                                    autoPlay
+                                    className="max-w-full max-h-full"
+                                    controlsList="nodownload"
+                                >
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+
+                            {/* Keyboard Hint */}
+                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-sm">
+                                ESC to close fullscreen
+                            </div>
+                        </>
+                    )}
                 </div>
             )}
         </>
