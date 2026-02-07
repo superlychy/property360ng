@@ -111,3 +111,34 @@ export async function uploadMultipleImagesToCloudinary(
         return { error: 'Failed to upload images' };
     }
 }
+
+/**
+ * Generate a signature for client-side uploads
+ * This allows uploading directly to Cloudinary without going through our server
+ */
+export async function getCloudinarySignature(params: Record<string, any>) {
+    try {
+        const timestamp = Math.round(new Date().getTime() / 1000);
+
+        // Add timestamp to params as it's required for signature
+        const paramsToSign = {
+            ...params,
+            timestamp
+        };
+
+        const signature = cloudinary.utils.api_sign_request(
+            paramsToSign,
+            process.env.CLOUDINARY_API_SECRET!
+        );
+
+        return {
+            signature,
+            timestamp,
+            cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+            apiKey: process.env.CLOUDINARY_API_KEY
+        };
+    } catch (error) {
+        console.error('Signature generation error:', error);
+        return { error: 'Failed to generate signature' };
+    }
+}

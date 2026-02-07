@@ -15,7 +15,7 @@ interface ListingFormProps {
 export default function ListingForm({ initialData, isEditing = false }: ListingFormProps) {
     const router = useRouter()
     const supabase = createClient()
-    const { uploadImage: uploadToCloudinary, uploading: cloudinaryUploading } = useCloudinaryUpload()
+    const { uploadImage: uploadToCloudinary, uploading: cloudinaryUploading, progress } = useCloudinaryUpload()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
@@ -61,8 +61,8 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
             if (!file) return
 
             // Basic validation
-            if (file.size > 50 * 1024 * 1024) { // 50MB limit
-                setError('Video file is too large (max 50MB)')
+            if (file.size > 100 * 1024 * 1024) { // 100MB limit
+                setError('Video file is too large (max 100MB)')
                 return
             }
 
@@ -295,7 +295,12 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
                                         className="cursor-pointer block"
                                     >
                                         {cloudinaryUploading ? (
-                                            <span className="text-gray-400 animate-pulse">Uploading...</span>
+                                            <div className="space-y-2">
+                                                <div className="text-gray-400 animate-pulse">Uploading... {progress}%</div>
+                                                <div className="w-full bg-gray-700 rounded-full h-1.5">
+                                                    <div className="bg-blue-500 h-1.5 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+                                                </div>
+                                            </div>
                                         ) : (
                                             <>
                                                 <span className="text-4xl block mb-2 group-hover:scale-110 transition-transform">📷</span>
@@ -345,11 +350,16 @@ export default function ListingForm({ initialData, isEditing = false }: ListingF
                                         className="cursor-pointer block"
                                     >
                                         {cloudinaryUploading ? (
-                                            <span className="text-gray-400 animate-pulse">Uploading...</span>
+                                            <div className="space-y-2">
+                                                <div className="text-gray-400 animate-pulse">Uploading... {progress}%</div>
+                                                <div className="w-full bg-gray-700 rounded-full h-1.5">
+                                                    <div className="bg-blue-500 h-1.5 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+                                                </div>
+                                            </div>
                                         ) : (
                                             <>
                                                 <span className="text-4xl block mb-2 group-hover:scale-110 transition-transform">🎥</span>
-                                                <span className="text-sm text-gray-400">Upload Walkthrough Video</span>
+                                                <span className="text-sm text-gray-400">Upload Property Video</span>
                                             </>
                                         )}
                                     </label>

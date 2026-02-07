@@ -16,7 +16,7 @@ export default function MediaGalleryManager({
     initialVideo = null
 }: MediaGalleryManagerProps) {
     const supabase = createClient()
-    const { uploadImage: uploadToCloudinary, uploadMultipleImages, uploading: cloudinaryUploading } = useCloudinaryUpload()
+    const { uploadImage: uploadToCloudinary, uploadMultipleImages, uploading: cloudinaryUploading, progress } = useCloudinaryUpload()
     const [images, setImages] = useState<string[]>(initialImages)
     const [videoUrl, setVideoUrl] = useState<string | null>(initialVideo)
     const [uploading, setUploading] = useState(false)
@@ -161,7 +161,12 @@ export default function MediaGalleryManager({
                     />
                     <label htmlFor="gallery-upload" className="cursor-pointer block">
                         {uploading ? (
-                            <span className="text-gray-400">Uploading...</span>
+                            <div className="space-y-2">
+                                <div className="text-gray-400 animate-pulse">Uploading... {progress}%</div>
+                                <div className="w-full bg-gray-700 rounded-full h-1.5">
+                                    <div className="bg-blue-500 h-1.5 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+                                </div>
+                            </div>
                         ) : (
                             <>
                                 <span className="text-4xl block mb-2">🖼️</span>
@@ -208,7 +213,12 @@ export default function MediaGalleryManager({
                         />
                         <label htmlFor="video-upload" className="cursor-pointer block">
                             {uploading ? (
-                                <span className="text-gray-400">Uploading...</span>
+                                <div className="space-y-2">
+                                    <div className="text-gray-400 animate-pulse">Uploading... {progress}%</div>
+                                    <div className="w-full bg-gray-700 rounded-full h-1.5">
+                                        <div className="bg-blue-500 h-1.5 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+                                    </div>
+                                </div>
                             ) : (
                                 <>
                                     <span className="text-4xl block mb-2">🎥</span>
