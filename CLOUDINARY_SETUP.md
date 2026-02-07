@@ -9,10 +9,10 @@ Cloudinary has been successfully integrated into the Real Estate 360 platform fo
 The following environment variables have been added to `.env.local`:
 
 ```bash
-CLOUDINARY_CLOUD_NAME=dhjsvoorl
-CLOUDINARY_API_KEY=385927627838147
-CLOUDINARY_API_SECRET=qxON31G0ueWU3kKLjBhx3-TLHJQ
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=dhjsvoorl
+CLOUDINARY_CLOUD_NAME=[Your Cloud Name]
+CLOUDINARY_API_KEY=[Your API Key]
+CLOUDINARY_API_SECRET=[Your API Secret]
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=[Your Cloud Name]
 ```
 
 ### Files Created

@@ -44,25 +44,13 @@
 ## 📁 Folder Structure
 
 ```
-cloudinary://dhjsvoorl/
+cloudinary://[your-cloud-name]/
 ├── property-images/       # Listing cover images
 ├── property-videos/       # Property walkthrough videos
 └── property-360-scenes/   # 360° panoramic images
 ```
 
 ## 🔍 Where Did Your Images Go?
-
-### Check Image URL:
-
-**Cloudinary (NEW):**
-```
-https://res.cloudinary.com/dhjsvoorl/image/upload/...
-```
-
-**Supabase (OLD):**
-```
-https://fieudfmxvocdpamfylas.supabase.co/storage/v1/...
-```
 
 ### Components Using Cloudinary:
 - ✅ ListingForm → Cover images & videos
@@ -80,33 +68,27 @@ https://fieudfmxvocdpamfylas.supabase.co/storage/v1/...
 
 ## 🔧 Environment Variables
 
+Make sure to set these in your `.env.local` file (and Vercel):
+
 ### Current `.env.local`:
 ```bash
 # Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://fieudfmxvocdpamfylas.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 SUPABASE_SERVICE_ROLE_KEY=...
 NEXT_PUBLIC_STORAGE_BUCKET=property-images
 
 # Cloudinary
-CLOUDINARY_CLOUD_NAME=dhjsvoorl
-CLOUDINARY_API_KEY=385927627838147
-CLOUDINARY_API_SECRET=qxON31G0ueWU3kKLjBhx3-TLHJQ
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=dhjsvoorl
+CLOUDINARY_CLOUD_NAME=...
+CLOUDINARY_API_KEY=...
+CLOUDINARY_API_SECRET=...
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=...
 
-# Discord Webhooks (ADD YOUR URLS)
-DISCORD_WEBHOOK_VISITORS=your-discord-webhook-url-for-visitors
-DISCORD_WEBHOOK_CONTACT=your-discord-webhook-url-for-contact-form
-DISCORD_WEBHOOK_APPLICATIONS=your-discord-webhook-url-for-applications
+# Discord Webhooks
+DISCORD_WEBHOOK_VISITORS=...
+DISCORD_WEBHOOK_CONTACT=...
+DISCORD_WEBHOOK_APPLICATIONS=...
 ```
-
-### For Vercel Deployment:
-Add these same variables to Vercel:
-1. Go to Vercel Dashboard
-2. Select your project
-3. Settings → Environment Variables
-4. Add each variable
-5. Redeploy
 
 ## 📚 Documentation Created
 
@@ -116,7 +98,8 @@ Add these same variables to Vercel:
 4. **CLOUDINARY_ARCHITECTURE.md** - System architecture
 5. **IMAGE_UPLOAD_STATUS.md** - Where images are uploaded
 6. **DISCORD_WEBHOOK_SETUP.md** - Discord webhook guide
-7. **THIS FILE** - Complete summary
+7. **VERCEL_ENV_VARIABLES.md** - Safe variable checklist
+8. **THIS FILE** - Complete summary
 
 ## 🚀 Next Steps
 
@@ -133,11 +116,7 @@ Add these same variables to Vercel:
    - Create Webhook → Copy URL
 
 4. **Update `.env.local`**:
-   ```bash
-   DISCORD_WEBHOOK_VISITORS=https://discord.com/api/webhooks/...
-   DISCORD_WEBHOOK_CONTACT=https://discord.com/api/webhooks/...
-   DISCORD_WEBHOOK_APPLICATIONS=https://discord.com/api/webhooks/...
-   ```
+   Add Webhook URLs to your local environment file.
 
 5. **Restart Dev Server**:
    ```bash
@@ -145,18 +124,11 @@ Add these same variables to Vercel:
    npm run dev
    ```
 
-6. **Test**:
-   - Visit a page → Check `#visitors`
-   - Submit contact form → Check `#contact-forms`
-
 ### 2. Verify Cloudinary Uploads
 
 1. **Upload a new listing** at `/admin/listings/new`
 2. **Check the image URL** in your database
-3. **Verify in Cloudinary Dashboard**:
-   - Go to https://console.cloudinary.com/
-   - Click "Media Library"
-   - Look for your image in `property-images/`
+3. **Verify in Cloudinary Dashboard**
 
 ### 3. Deploy to Vercel
 
@@ -171,104 +143,16 @@ Add these same variables to Vercel:
    git push
    ```
 
-3. **Vercel Auto-Deploy** (if connected)
-
-## 🎯 Quick Test Checklist
-
-- [ ] Upload a new listing image
-- [ ] Check if it appears in Cloudinary dashboard
-- [ ] Upload a 360° scene
-- [ ] Check if it appears in `property-360-scenes/` folder
-- [ ] Set up Discord webhooks
-- [ ] Visit a page and check Discord notification
-- [ ] Submit contact form and check Discord
-- [ ] Deploy to Vercel with environment variables
-
-## 💡 Tips
-
-### Cloudinary:
-- **Free Tier**: 25GB storage + 25GB bandwidth/month
-- **Automatic Optimization**: Images are auto-optimized
-- **CDN**: Global delivery for fast loading
-- **Transformations**: Resize images on-the-fly
-
-### Discord Webhooks:
-- **Instant Notifications**: Get alerts in real-time
-- **Organized**: Use separate channels for different types
-- **Secure**: Keep webhook URLs in environment variables
-- **Rate Limits**: 30 requests/minute per webhook
-
-### Vercel:
-- **Environment Variables**: Add all secrets here
-- **Auto-Deploy**: Connects to GitHub for automatic deployment
-- **Preview Deployments**: Test before going live
-
 ## 🔒 Security Reminders
 
 ### ✅ DO:
 - Keep `.env.local` in `.gitignore`
 - Use environment variables for secrets
 - Add secrets to Vercel dashboard
-- Regenerate exposed webhooks
+- Regenerate exposed webhooks if accidentally committed
 
 ### ❌ DON'T:
 - Commit `.env.local` to Git
 - Share webhook URLs publicly
 - Hardcode API keys in code
 - Use production keys in development
-
-## 📊 What's Supported
-
-### Cloudinary File Types:
-
-| Type | Supported | Folder |
-|------|-----------|--------|
-| Images (JPG, PNG, WebP) | ✅ Yes | `property-images/` |
-| Videos (MP4, WebM, MOV) | ✅ Yes | `property-videos/` |
-| 360° Images | ✅ Yes | `property-360-scenes/` |
-| Documents (PDF) | ✅ Yes | Custom folder |
-| Audio (MP3, WAV) | ✅ Yes | Custom folder |
-
-### Discord Notifications:
-
-| Event | Status | Channel |
-|-------|--------|---------|
-| Visitor Tracking | ✅ Ready | `#visitors` |
-| Contact Form | ✅ Ready | `#contact-forms` |
-| Applications | ✅ Ready | `#applications` |
-
-## 🆘 Troubleshooting
-
-### Images Not Uploading to Cloudinary?
-1. Check environment variables are set
-2. Restart dev server
-3. Check Cloudinary dashboard for errors
-4. Verify API credentials
-
-### Discord Webhooks Not Working?
-1. Check webhook URLs in `.env.local`
-2. Restart dev server
-3. Test webhook with curl
-4. Check Discord channel permissions
-
-### Still Using Supabase?
-- ListingForm and SceneList use Cloudinary
-- BannerForm still uses Supabase (can update if needed)
-- Old images will continue to work
-
-## 📞 Support
-
-- **Cloudinary Docs**: https://cloudinary.com/documentation
-- **Discord Webhooks**: https://discord.com/developers/docs/resources/webhook
-- **Vercel Docs**: https://vercel.com/docs
-
-## ✨ Summary
-
-You now have:
-1. ✅ **Cloudinary** for optimized image/video uploads
-2. ✅ **Discord Webhooks** for real-time notifications
-3. ✅ **Contact Form** connected to Discord
-4. ✅ **Visitor Tracking** (optional, needs webhook setup)
-5. ✅ **Complete Documentation** for everything
-
-**Next**: Set up your Discord webhooks and test!
