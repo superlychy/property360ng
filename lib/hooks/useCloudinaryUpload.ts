@@ -33,7 +33,7 @@ export function useCloudinaryUpload() {
             setProgress(100);
 
             if ('error' in result) {
-                setError(result.error);
+                setError(result.error || 'Upload failed');
                 return null;
             }
 
@@ -73,7 +73,7 @@ export function useCloudinaryUpload() {
             setProgress(100);
 
             if ('error' in result) {
-                setError(result.error);
+                setError(result.error || 'Upload failed');
                 return [];
             }
 
