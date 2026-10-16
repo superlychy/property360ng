@@ -1,6 +1,19 @@
 'use server';
 
 import cloudinary from '@/lib/cloudinary';
+import { createClient } from '@/lib/supabase/server';
+
+const allowedUploadFolders = new Set([
+    'property-images',
+    'property-videos',
+    'property-360-scenes',
+]);
+
+async function isAuthenticated() {
+    const supabase = await createClient();
+    const { data: { user }, error } = await supabase.auth.getUser();
+    return !error && !!user;
+}
 
 /**
  * Server action to upload image to Cloudinary
@@ -11,6 +24,13 @@ export async function uploadImageToCloudinary(
     folder: string = 'property-images'
 ) {
     try {
+        if (!(await isAuthenticated())) {
+            return { error: 'Authentication required' };
+        }
+        if (!allowedUploadFolders.has(folder)) {
+            return { error: 'Invalid upload folder' };
+        }
+
         const file = formData.get('file') as File;
 
         if (!file) {
@@ -54,6 +74,14 @@ export async function uploadImageToCloudinary(
  */
 export async function deleteImageFromCloudinary(publicId: string) {
     try {
+        if (!(await isAuthenticated())) {
+            return { error: 'Authentication required' };
+        }
+        const allowedPrefixes = [...allowedUploadFolders].some(prefix => publicId.startsWith(`${prefix}/`));
+        if (!allowedPrefixes) {
+            return { error: 'Invalid image identifier' };
+        }
+
         const result = await cloudinary.uploader.destroy(publicId);
         return { success: true, result };
     } catch (error) {
@@ -70,6 +98,13 @@ export async function uploadMultipleImagesToCloudinary(
     folder: string = 'property-images'
 ) {
     try {
+        if (!(await isAuthenticated())) {
+            return { error: 'Authentication required' };
+        }
+        if (!allowedUploadFolders.has(folder)) {
+            return { error: 'Invalid upload folder' };
+        }
+
         const files = formData.getAll('files') as File[];
 
         if (!files || files.length === 0) {
@@ -118,13 +153,16 @@ export async function uploadMultipleImagesToCloudinary(
  */
 export async function getCloudinarySignature(params: Record<string, any>) {
     try {
-        const timestamp = Math.round(new Date().getTime() / 1000);
+        if (!(await isAuthenticated())) {
+            return { error: 'Authentication required' };
+        }
+        const folder = typeof params.folder === 'string' ? params.folder : 'property-images';
+        if (!allowedUploadFolders.has(folder)) {
+            return { error: 'Invalid upload folder' };
+        }
 
-        // Add timestamp to params as it's required for signature
-        const paramsToSign = {
-            ...params,
-            timestamp
-        };
+        const timestamp = Math.round(new Date().getTime() / 1000);
+        const paramsToSign = { folder, timestamp };
 
         const signature = cloudinary.utils.api_sign_request(
             paramsToSign,
