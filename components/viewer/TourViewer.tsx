@@ -81,12 +81,19 @@ export default function TourViewer({ scenes, listingTitle, listingId }: TourView
                 type: 'custom',
                 cssClass: 'tour-hotspot',
                 createTooltipFunc: (hotSpotDiv: HTMLElement) => {
-                    hotSpotDiv.innerHTML = `
-                        <div class="tour-hotspot-tooltip">
-                            <span class="tour-hotspot-icon">→</span>
-                            <span class="tour-hotspot-label">${h.label || targetScene?.name || 'Go'}</span>
-                        </div>
-                    `
+                    const tooltip = document.createElement('div')
+                    tooltip.className = 'tour-hotspot-tooltip'
+
+                    const icon = document.createElement('span')
+                    icon.className = 'tour-hotspot-icon'
+                    icon.textContent = '→'
+
+                    const label = document.createElement('span')
+                    label.className = 'tour-hotspot-label'
+                    label.textContent = h.label || targetScene?.name || 'Go'
+
+                    tooltip.append(icon, label)
+                    hotSpotDiv.appendChild(tooltip)
                 },
                 clickHandlerFunc: () => {
                     if (targetIndex !== -1) {
