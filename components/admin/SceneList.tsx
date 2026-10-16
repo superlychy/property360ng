@@ -93,15 +93,17 @@ export default function SceneList({ scenes, listingId }: SceneListProps) {
         const otherScene = scenes[otherIndex]
 
         try {
-            await supabase
+            const { error: firstUpdateError } = await supabase
                 .from('scenes')
                 .update({ order: otherScene.order })
                 .eq('id', scene.id)
+            if (firstUpdateError) throw firstUpdateError
 
-            await supabase
+            const { error: secondUpdateError } = await supabase
                 .from('scenes')
                 .update({ order: scene.order })
                 .eq('id', otherScene.id)
+            if (secondUpdateError) throw secondUpdateError
 
             router.refresh()
         } catch (err) {
@@ -163,9 +165,9 @@ export default function SceneList({ scenes, listingId }: SceneListProps) {
                     <h3 className="text-lg font-medium">Scenes ({scenes.length})</h3>
                     {scenes.map((scene, index) => (
                         <div key={scene.id} className="card bg-gray-900 border-gray-800 group hover:border-gray-600">
-                            <div className="flex gap-4">
+                            <div className="flex flex-col gap-4 sm:flex-row">
                                 {/* Thumbnail */}
-                                <div className="w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-800">
+                                <div className="h-44 w-full flex-shrink-0 rounded-lg overflow-hidden bg-gray-800 sm:h-32 sm:w-32">
                                     <img
                                         src={scene.image_360_url}
                                         alt={scene.name}
