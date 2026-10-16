@@ -116,42 +116,21 @@ export default function CareersPage() {
                                     <div className="w-full border-t border-white/10"></div>
                                 </div>
                                 <div className="relative flex justify-center text-sm">
-                                    <span className="px-2 bg-gray-900 text-gray-500">Or use this form</span>
+                                    <span className="px-2 bg-gray-900 text-gray-500">Apply by email</span>
                                 </div>
                             </div>
 
-                            <form className="space-y-4">
-                                <div>
-                                    <label className="block text-xs font-medium text-gray-400 mb-1">Full Name</label>
-                                    <input type="text" className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-1 focus:ring-green-500 outline-none text-sm" placeholder="John Doe" />
-                                </div>
-                                <div>
-                                    <label className="block text-xs font-medium text-gray-400 mb-1">Email Address</label>
-                                    <input type="email" className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-1 focus:ring-green-500 outline-none text-sm" placeholder="john@example.com" />
-                                </div>
-                                <div>
-                                    <label className="block text-xs font-medium text-gray-400 mb-1">Role Applying For</label>
-                                    <select className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-1 focus:ring-green-500 outline-none text-sm">
-                                        <option>Real Estate Agent / Realtor</option>
-                                        <option>Property Listing Manager</option>
-                                        <option>Sales Executive</option>
-                                        <option>Customer Support</option>
-                                        <option>Digital Marketer</option>
-                                        <option>Content Writer</option>
-                                        <option>Photographer / Videographer</option>
-                                        <option>Web / Technical Support</option>
-                                        <option>Internship / NYSC</option>
-                                        <option>Other</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="block text-xs font-medium text-gray-400 mb-1">Introduction / Cover Letter</label>
-                                    <textarea className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:ring-1 focus:ring-green-500 outline-none h-32 text-sm" placeholder="Tell us about yourself and include links to your CV/Portfolio..."></textarea>
-                                </div>
-                                <button type="submit" className="w-full py-3 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors">
-                                    Submit Application
-                                </button>
-                            </form>
+                            <div className="space-y-4">
+                                <p className="text-sm text-gray-400">
+                                    Send your introduction, CV or portfolio, and the role you’re applying for by email.
+                                </p>
+                                <a
+                                    href="mailto:careers@property360ng.com?subject=Property360ng%20Job%20Application"
+                                    className="block w-full py-3 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors text-center"
+                                >
+                                    Email your application
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
