@@ -82,12 +82,19 @@ export default function HotspotEditor({ scene, allScenes, initialHotspots, listi
                     cssClass: 'custom-hotspot',
                     createTooltipFunc: (hotSpotDiv: HTMLElement) => {
                         const targetScene = allScenes.find(s => s.id === h.target_scene_id)
-                        hotSpotDiv.innerHTML = `
-                            <div class="hotspot-tooltip">
-                                <span class="hotspot-icon">→</span>
-                                <span class="hotspot-label">${h.label || targetScene?.name || 'Go'}</span>
-                            </div>
-                        `
+                        const tooltip = document.createElement('div')
+                        tooltip.className = 'hotspot-tooltip'
+
+                        const icon = document.createElement('span')
+                        icon.className = 'hotspot-icon'
+                        icon.textContent = '→'
+
+                        const label = document.createElement('span')
+                        label.className = 'hotspot-label'
+                        label.textContent = h.label || targetScene?.name || 'Go'
+
+                        tooltip.append(icon, label)
+                        hotSpotDiv.appendChild(tooltip)
                     },
                     clickHandlerFunc: () => {
                         if (!isPlacingHotspot && editMode) {
@@ -139,12 +146,19 @@ export default function HotspotEditor({ scene, allScenes, initialHotspots, listi
                     type: 'custom',
                     cssClass: 'custom-hotspot',
                     createTooltipFunc: (hotSpotDiv: HTMLElement) => {
-                        hotSpotDiv.innerHTML = `
-                            <div class="hotspot-tooltip">
-                                <span class="hotspot-icon">→</span>
-                                <span class="hotspot-label">${h.label || targetScene?.name || 'Go'}</span>
-                            </div>
-                        `
+                        const tooltip = document.createElement('div')
+                        tooltip.className = 'hotspot-tooltip'
+
+                        const icon = document.createElement('span')
+                        icon.className = 'hotspot-icon'
+                        icon.textContent = '→'
+
+                        const label = document.createElement('span')
+                        label.className = 'hotspot-label'
+                        label.textContent = h.label || targetScene?.name || 'Go'
+
+                        tooltip.append(icon, label)
+                        hotSpotDiv.appendChild(tooltip)
                     },
                     clickHandlerFunc: () => {
                         if (!isPlacingHotspot && editMode) {
